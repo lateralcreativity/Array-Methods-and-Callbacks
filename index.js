@@ -43,13 +43,20 @@ console.log(getYears(getFinals(fifaData)));
 
 /* Task 5: Impliment a higher-order function called `getWinners`, that accepts the callback function `getFinals()` and determine the winner (home or away) of each `finals` game. Return the name of all winning countries in an array called `winners` */ 
 
-function getWinners(/* code here */) {
+function getWinners(callback) {
 
-    /* code here */
+    const winners = callback.map(function(data){
+        if(data['Home Team Goals'] > data['Away Team Goals']){
+            return data['Home Team Name'];
+        } else {
+            return data['Away Team Name'];
+        }
+    })
+    return winners;
 
 };
 
-getWinners();
+console.log(getWinners(getFinals(fifaData)));
 
 /* Task 6: Implement a higher-order function called `getWinnersByYear` that accepts the following parameters and returns a set of strings "In {year}, {country} won the world cup!" 
 
@@ -58,24 +65,27 @@ Parameters:
  * callback function getYears
  */
 
-function getAllWinners(/* code here */) {
+function getWinnersByYear(winners, years) {
+
+    return winners.map(function(winner, index){
+        return `In ${years[index]}, ${winner} won the world cup!`;
+    })
 
 };
 
-getAllWinners();
+console.log(getWinnersByYear(getWinners(getFinals(fifaData)), getYears(getFinals(fifaData))));
 
 /* Task 7: Create a function called `getCountryWins` that takes the parameters `data` and `team initials` and returns the number of world cup wins that country has had. 
 
 Hint: Investigate your data to find "team initials"!
 Hint: use `.reduce` */
 
-function getCountryWins(/* code here */) {
+function getCountryWins(data, teamInitials) {
 
-    /* code here */
 
 };
 
-getCountryWins();
+console.log(getCountryWins(getWinners(fifaData), 'ENG'));
 
 
 /* Task 8: Write a function called getGoals() that accepts a parameter `data` and returns the team with the most goals score per appearance (average goals for) in the World Cup finals */
